@@ -18,3 +18,104 @@ model Post {
 
     @@index([name])
 }
+
+model Product {
+    id              Int              @id @default(autoincrement())
+    name            String
+    description     String
+    slug            String
+    sku             String
+    price           Float
+    salePrice       Float?
+    salePriceStart  DateTime?
+    salePriceEnd    DateTime?
+    currency        String
+    stock           Int
+    imageUrl        String
+    createdAt       DateTime         @default(now())
+    updatedAt       DateTime         @updatedAt
+    category        Category         @relation(fields: [categoryId], references: [id])
+    ProductVariants ProductVariant[]
+    ProductImages   ProductImage[]
+    OrderItem       OrderItem[]
+    categoryId      Int
+
+    @@index([slug])
+}
+
+model ProductVariant {
+    id             Int       @id @default(autoincrement())
+    name           String
+    sku            String
+    price          Float
+    salePrice      Float?
+    salePriceStart DateTime?
+    salePriceEnd   DateTime?
+    currency       String
+    stock          Int
+    productId      Int
+    createdAt      DateTime  @default(now())
+    updatedAt      DateTime  @updatedAt
+
+    product Product @relation(fields: [productId], references: [id])
+
+    @@index([name])
+}
+
+model ProductImage {
+    id        Int      @id @default(autoincrement())
+    imageUrl  String
+    productId Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    product Product @relation(fields: [productId], references: [id])
+
+    @@index([imageUrl])
+}
+
+model Category {
+    id        Int       @id @default(autoincrement())
+    name      String
+    slug      String
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    Product   Product[]
+
+    @@index([name])
+}
+
+model Order {
+    id        Int         @id @default(autoincrement())
+    userId    String
+    name      String
+    email     String
+    phone     String
+    address   String
+    city      String
+    state     String
+    country   String
+    zip       String
+    total     Float
+    status    String
+    createdAt DateTime    @default(now())
+    updatedAt DateTime    @updatedAt
+    OrderItem OrderItem[]
+
+    @@index([email])
+}
+
+model OrderItem {
+    id        Int      @id @default(autoincrement())
+    orderId   Int
+    productId Int
+    quantity  Int
+    price     Float
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    order   Order   @relation(fields: [orderId], references: [id])
+    product Product @relation(fields: [productId], references: [id])
+
+    @@index([orderId])
+}
