@@ -13,7 +13,7 @@ export function ClerkThemeProvider({ children }: { children: ReactNode }) {
       appearance={{
         baseTheme: resolvedTheme === "dark" ? dark : undefined,
         variables: {
-          colorBackground: resolvedTheme === "dark" ? "#172121" : "",
+          colorBackground: resolvedTheme === "dark" ? "#0a0f0f" : "",
           borderRadius: "0.2rem",
         },
       }}

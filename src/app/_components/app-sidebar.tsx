@@ -16,16 +16,18 @@ import {
 import { navItems, socialMediaLinks } from "./nav";
 import { Separator } from "./ui/separator";
 import { SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs";
-import { useTheme } from "next-themes";
 import { MobileThemeToggle } from "./theme-toggle";
+import { usePathname } from "next/navigation";
 
 export function AppSidebar() {
   const { isMobile } = useSidebar();
-  const { theme } = useTheme();
+  const pathname = usePathname();
 
   if (!isMobile) {
     return null;
   }
+
+  const firstParam = pathname.split("/")[1];
 
   return (
     <Sidebar>
@@ -35,15 +37,12 @@ export function AppSidebar() {
             Social media links
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu className="flex flex-row justify-center">
+            <SidebarMenu className="flex flex-row justify-center gap-4">
               {socialMediaLinks.map((item) => (
                 <SidebarMenuItem key={item.title} className="w-fit">
-                  <SidebarMenuButton
-                    asChild
-                    className="size-6 w-fit p-0 hover:bg-transparent"
-                  >
+                  <SidebarMenuButton className="size-6 w-fit p-0 hover:bg-transparent">
                     <Link href={item.url} target="_blank">
-                      <item.icon className="size-6" />
+                      <item.icon />
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -62,7 +61,11 @@ export function AppSidebar() {
             <SidebarMenu className="flex flex-col gap-4">
               {navItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="hover:bg-inherit">
+                  <SidebarMenuButton
+                    asChild
+                    className="hover:bg-inherit"
+                    data-active={firstParam === item.url.split("/")[1]}
+                  >
                     <a href={item.url} className="text-xl font-extralight">
                       <span>{item.title}</span>
                     </a>
@@ -90,15 +93,26 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SignedOut>
                 <SignedIn>
-                  <SidebarMenuButton asChild className="hover:bg-inherit">
-                    <a href={"/account"} className="text-xl font-extralight">
+                  <SidebarMenuButton
+                    asChild
+                    className="hover:bg-inherit"
+                    data-active={firstParam === "user-profile"}
+                  >
+                    <a
+                      href={"/user-profile"}
+                      className="text-xl font-extralight"
+                    >
                       <span>Account</span>
                     </a>
                   </SidebarMenuButton>
                 </SignedIn>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild className="hover:bg-inherit">
+                <SidebarMenuButton
+                  asChild
+                  className="hover:bg-inherit"
+                  data-active={firstParam === "cart"}
+                >
                   <a href={"/cart"} className="text-xl font-extralight">
                     <span>Cart</span>
                   </a>

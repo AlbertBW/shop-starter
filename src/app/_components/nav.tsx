@@ -1,29 +1,39 @@
 "use client";
 
-import {
-  Facebook,
-  Instagram,
-  Search,
-  ShoppingCart,
-  UserCircle2Icon,
-} from "lucide-react";
+import { Search, ShoppingCart, UserCircle2Icon } from "lucide-react";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 import { ModeToggle } from "./theme-toggle";
 import { usePathname } from "next/navigation";
 import { SidebarTrigger } from "./ui/sidebar";
 import UserButtonClerk from "./user-button";
+import {
+  SiInstagram,
+  SiFacebook,
+  SiX,
+  SiYoutube,
+} from "@icons-pack/react-simple-icons";
 
 export const socialMediaLinks = [
   {
     title: "Facebook",
     url: "https://www.facebook.com/",
-    icon: Facebook,
+    icon: SiFacebook,
   },
   {
     title: "Instagram",
     url: "https://www.instagram.com/",
-    icon: Instagram,
+    icon: SiInstagram,
+  },
+  {
+    title: "Twitter",
+    url: "https://twitter.com/",
+    icon: SiX,
+  },
+  {
+    title: "YouTube",
+    url: "https://www.youtube.com/",
+    icon: SiYoutube,
   },
 ];
 
@@ -69,9 +79,9 @@ export default function Navbar() {
             <SidebarTrigger />
           </div>
         </div>
-        <Link href={"/"} className="w-full text-center">
-          <h3 className="text-2xl font-extralight">COMPANY NAME</h3>
-        </Link>
+        <h3 className="w-full text-center text-2xl font-extralight">
+          <Link href={"/"}>COMPANY NAME</Link>
+        </h3>
         <div className="text-highlight-1 flex items-center justify-end gap-4 md:w-full">
           <span className="hidden md:block">
             <Search />
