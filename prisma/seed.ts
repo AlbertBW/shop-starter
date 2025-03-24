@@ -1,4 +1,3 @@
-import { Prisma } from "@prisma/client";
 import { db } from "../src/server/db";
 
 async function seed() {
@@ -50,6 +49,14 @@ async function seed() {
       ],
     });
 
+    function randomDate() {
+      const start = new Date(2020, 0, 1);
+      const end = new Date();
+      return new Date(
+        start.getTime() + Math.random() * (end.getTime() - start.getTime()),
+      );
+    }
+
     const products = await db.product.createMany({
       data: [
         {
@@ -63,6 +70,8 @@ async function seed() {
           currency: "GBP",
           stock: 50,
           categoryId: 1,
+          createdAt: randomDate(),
+          sold: 12,
         },
         {
           id: 2,
@@ -75,6 +84,8 @@ async function seed() {
           currency: "GBP",
           stock: 100,
           categoryId: 3,
+          createdAt: randomDate(),
+          sold: 0,
         },
         {
           id: 3,
@@ -87,6 +98,8 @@ async function seed() {
           currency: "GBP",
           stock: 75,
           categoryId: 2,
+          createdAt: randomDate(),
+          sold: 4,
         },
         {
           id: 4,
@@ -99,6 +112,8 @@ async function seed() {
           currency: "GBP",
           stock: 200,
           categoryId: 3,
+          createdAt: randomDate(),
+          sold: 20,
         },
         {
           id: 5,
@@ -111,6 +126,8 @@ async function seed() {
           currency: "GBP",
           stock: 30,
           categoryId: 4,
+          createdAt: randomDate(),
+          sold: 4,
         },
         {
           id: 6,
@@ -123,6 +140,8 @@ async function seed() {
           currency: "GBP",
           stock: 20,
           categoryId: 6,
+          createdAt: randomDate(),
+          sold: 25,
         },
         {
           id: 7,
@@ -135,6 +154,106 @@ async function seed() {
           currency: "GBP",
           stock: 15,
           categoryId: 5,
+          createdAt: randomDate(),
+          sold: 23,
+        },
+        {
+          id: 8,
+          name: "Bluetooth Speaker",
+          description:
+            "Portable Bluetooth speaker with deep bass and long battery life.",
+          price: 79.99,
+          slug: "bluetooth-speaker",
+          sku: "BS-001",
+          currency: "GBP",
+          stock: 60,
+          categoryId: 3,
+          createdAt: randomDate(),
+          sold: 9,
+        },
+        {
+          id: 9,
+          name: "Action Camera",
+          description:
+            "Compact action camera with 4K recording and waterproof design.",
+          price: 299.99,
+          slug: "action-camera",
+          sku: "AC-001",
+          currency: "GBP",
+          stock: 25,
+          categoryId: 5,
+          createdAt: randomDate(),
+          sold: 54,
+        },
+        {
+          id: 10,
+          name: "Laptop Stand",
+          description:
+            "Ergonomic laptop stand with adjustable height and angle.",
+          price: 39.99,
+          slug: "laptop-stand",
+          sku: "LS-001",
+          currency: "GBP",
+          stock: 150,
+          categoryId: 3,
+          createdAt: randomDate(),
+          sold: 27,
+        },
+        {
+          id: 11,
+          name: "Wireless Keyboard",
+          description:
+            "Slim wireless keyboard with quiet keys and long battery life.",
+          price: 59.99,
+          slug: "wireless-keyboard",
+          sku: "WK-001",
+          currency: "GBP",
+          stock: 80,
+          categoryId: 3,
+          createdAt: randomDate(),
+          sold: 1,
+        },
+        {
+          id: 12,
+          name: "Fitness Tracker",
+          description:
+            "Fitness tracker with heart rate monitor and sleep tracking.",
+          price: 99.99,
+          slug: "fitness-tracker",
+          sku: "FT-001",
+          currency: "GBP",
+          stock: 40,
+          categoryId: 4,
+          createdAt: randomDate(),
+          sold: 2,
+        },
+        {
+          id: 13,
+          name: "Magnetic Wallet",
+          description:
+            "Magnetic wallet with RFID blocking technology and slim design.",
+          price: 19.99,
+          slug: "magnetic-wallet",
+          sku: "MW-001",
+          currency: "GBP",
+          stock: 200,
+          categoryId: 3,
+          createdAt: randomDate(),
+          sold: 32,
+        },
+        {
+          id: 14,
+          name: "Portable Power Bank",
+          description:
+            "High capacity portable power bank with fast charging support.",
+          price: 39.99,
+          slug: "portable-power-bank",
+          sku: "PPB-001",
+          currency: "GBP",
+          stock: 120,
+          categoryId: 3,
+          createdAt: randomDate(),
+          sold: 52,
         },
       ],
     });
@@ -149,6 +268,7 @@ async function seed() {
           sku: "OEH-001-BLK",
           currency: "GBP",
           stock: 50,
+          sold: 5,
         },
         {
           id: 2,
@@ -158,6 +278,37 @@ async function seed() {
           sku: "OEH-001-WHT",
           currency: "GBP",
           stock: 20,
+          sold: 7,
+        },
+        {
+          id: 3,
+          productId: 11,
+          name: "Cherry MX Brown",
+          price: 59.99,
+          sku: "WK-001-BRN",
+          currency: "GBP",
+          stock: 80,
+          sold: 0,
+        },
+        {
+          id: 4,
+          productId: 11,
+          name: "Cherry MX Blue",
+          price: 64.99,
+          sku: "WK-001-BLU",
+          currency: "GBP",
+          stock: 50,
+          sold: 1,
+        },
+        {
+          id: 5,
+          productId: 11,
+          name: "Cherry MX Red",
+          price: 59.99,
+          sku: "WK-001-RED",
+          currency: "GBP",
+          stock: 30,
+          sold: 0,
         },
       ],
     });
@@ -220,6 +371,55 @@ async function seed() {
             "https://c4kzitkhtxdwhtej.public.blob.vercel-storage.com/headphones-white-iGR9iXythwL0Y21c5T8wKqrEmfuiCp.jpg",
           altText: "Over ear headphones - White",
         },
+        {
+          id: 9,
+          productId: 8,
+          imageUrl:
+            "https://c4kzitkhtxdwhtej.public.blob.vercel-storage.com/bt-speaker-nsNhSIFEQnJJtH6HS7h9jV1S6O1cGr.jpg",
+          altText: "Bluetooth Speaker",
+        },
+        {
+          id: 10,
+          productId: 9,
+          imageUrl:
+            "https://c4kzitkhtxdwhtej.public.blob.vercel-storage.com/action-cam-1LvQm1RmnvR9zbhgmv1w6eG5TCqXA5.jpg",
+          altText: "Action Camera",
+        },
+        {
+          id: 11,
+          productId: 10,
+          imageUrl:
+            "https://c4kzitkhtxdwhtej.public.blob.vercel-storage.com/laptop-stand-ym7ThXidEuxV8OvQpM45k8DiiKsb0H.jpg",
+          altText: "Laptop Stand",
+        },
+        {
+          id: 12,
+          productId: 11,
+          imageUrl:
+            "https://c4kzitkhtxdwhtej.public.blob.vercel-storage.com/keyboard-iAW7hvss14TQoABjPKadYbmcy7qaG5.jpg",
+          altText: "Wireless Keyboard",
+        },
+        {
+          id: 13,
+          productId: 12,
+          imageUrl:
+            "https://c4kzitkhtxdwhtej.public.blob.vercel-storage.com/fit-watch-jaKk0SFHCS8gboTaIST98iU5IWFgQs.jpg",
+          altText: "Fitness Tracker",
+        },
+        {
+          id: 14,
+          productId: 13,
+          imageUrl:
+            "https://c4kzitkhtxdwhtej.public.blob.vercel-storage.com/wallet-anOOCEtqjosia599TbocK7heRGiR8K.jpg",
+          altText: "Magnetic Wallet",
+        },
+        {
+          id: 15,
+          productId: 14,
+          imageUrl:
+            "https://c4kzitkhtxdwhtej.public.blob.vercel-storage.com/power-bank-Dh4AEboQKtPCvBmzXcs8gNBnyktfvd.jpg",
+          altText: "Portable Power Bank",
+        },
       ],
     });
 
@@ -235,4 +435,4 @@ async function seed() {
   }
 }
 
-seed();
+await seed();

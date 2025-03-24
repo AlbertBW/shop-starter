@@ -1,7 +1,7 @@
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 
 import { ThemeProvider } from "./_components/theme-provider";
 import { TRPCReactProvider } from "~/trpc/react";
@@ -10,8 +10,8 @@ import { ClerkThemeProvider } from "./_components/clerk-provider";
 import { SidebarProvider } from "./_components/ui/sidebar";
 import { AppSidebar } from "./_components/app-sidebar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -27,12 +27,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable}`}
-      suppressHydrationWarning
-    >
-      <body>
+    <html lang="en" className={`${inter.variable}`} suppressHydrationWarning>
+      <body className="font-inter overflow-y-scroll">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -63,7 +63,7 @@ export default function Navbar() {
   return (
     <nav className="py-6">
       <div className="flex flex-row md:pt-4">
-        <div className="text-highlight-1 flex items-center gap-4 md:w-full">
+        <div className="flex items-center gap-4 text-highlight-1 md:w-full">
           {socialMediaLinks.map((link) => (
             <Link
               key={link.title}
@@ -79,10 +79,10 @@ export default function Navbar() {
             <SidebarTrigger />
           </div>
         </div>
-        <h3 className="w-full text-center text-2xl font-extralight">
+        <h3 className="w-full text-center text-2xl font-light">
           <Link href={"/"}>COMPANY NAME</Link>
         </h3>
-        <div className="text-highlight-1 flex items-center justify-end gap-4 md:w-full">
+        <div className="flex items-center justify-end gap-4 text-highlight-1 md:w-full">
           <span className="hidden md:block">
             <Search />
           </span>
@@ -114,7 +114,7 @@ export default function Navbar() {
             key={item.title}
             href={item.url}
             data-active={firstParam === item.url.split("/")[1]}
-            className="hover:text-muted-foreground data-[active=true]:border-primary mx-4 border-b border-transparent transition-all"
+            className="mx-4 border-b border-transparent transition-all hover:text-muted-foreground data-[active=true]:border-primary"
           >
             {item.title}
           </Link>

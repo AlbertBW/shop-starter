@@ -1,8 +1,9 @@
 "use client";
 
 import { useAuth, UserProfile } from "@clerk/nextjs";
-import { DotIcon, Package } from "lucide-react";
+import { Package } from "lucide-react";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "~/app/_components/loading-spinner";
 
 function OrdersPage() {
   return (
@@ -18,11 +19,7 @@ export default function UserProfilePage() {
   const router = useRouter();
 
   if (!isLoaded) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <div className="border-primary h-32 w-32 animate-spin rounded-full border-b-2 border-t-2"></div>
-      </div>
-    );
+    <LoadingSpinner />;
   }
 
   if (!isSignedIn) {

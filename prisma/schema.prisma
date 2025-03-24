@@ -23,14 +23,15 @@ model Product {
     id              Int              @id @default(autoincrement())
     name            String
     description     String
-    slug            String
-    sku             String
+    slug            String           @unique
+    sku             String           @unique
     price           Float
     salePrice       Float?
     salePriceStart  DateTime?
     salePriceEnd    DateTime?
     currency        String
     stock           Int
+    sold            Int
     createdAt       DateTime         @default(now())
     updatedAt       DateTime         @updatedAt
     category        Category         @relation(fields: [categoryId], references: [id])
@@ -45,13 +46,14 @@ model Product {
 model ProductVariant {
     id             Int       @id @default(autoincrement())
     name           String
-    sku            String
+    sku            String    @unique
     price          Float
     salePrice      Float?
     salePriceStart DateTime?
     salePriceEnd   DateTime?
     currency       String
     stock          Int
+    sold           Int
     productId      Int
     createdAt      DateTime  @default(now())
     updatedAt      DateTime  @updatedAt
