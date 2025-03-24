@@ -6,8 +6,7 @@ import LoadingSpinner from "~/app/_components/loading-spinner";
 import ProductPagination from "../_components/product-pagination";
 import { createPriceString } from "~/app/_lib/utils";
 import { type OrderByOptions } from "~/lib/types";
-
-export const dynamicParams = false;
+import { MobileProductSidebar } from "../_components/product-sidebar";
 
 export default async function Products({
   params,
@@ -31,12 +30,11 @@ export default async function Products({
   }, 0);
 
   const pages = Math.ceil(productCount / 12);
-
   const suspenseKey = `products-${slug?.[0] ?? "all"}-${orderBy}-${page}`;
 
   return (
     <div className="flex gap-4 pb-12">
-      <div className="min-w-44 px-4">
+      <div className="hidden min-w-44 px-4 md:block">
         <ul className="flex flex-col gap-8 text-muted-foreground">
           <li>
             <Link
@@ -62,11 +60,12 @@ export default async function Products({
       </div>
 
       <div className="flex w-full flex-col gap-4">
-        <div className="flex w-full justify-between">
+        <div className="flex w-full flex-col justify-between gap-4 text-center md:flex-row md:gap-0 md:text-left">
           <h1 className="text-xl font-light tracking-wide text-primary">
             {selectedCategory ? selectedCategory.name : "All Products"}
           </h1>
-          <div>
+          <div className="flex items-center gap-4">
+            <MobileProductSidebar categories={categories} slug={slug} />
             <SelectOrderBy />
           </div>
         </div>
@@ -103,8 +102,6 @@ async function ProductsList({
     orderBy,
     page: Number(page) || 1,
   });
-
-  console.log(page);
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

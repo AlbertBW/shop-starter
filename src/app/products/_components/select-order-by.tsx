@@ -24,7 +24,7 @@ export function SelectOrderBy() {
 
   return (
     <Select defaultValue={orderBy ?? "popular"} onValueChange={handleChange}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="flex w-full justify-center md:w-[180px] md:justify-between">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
