@@ -34,11 +34,11 @@ model Product {
     sold            Int
     createdAt       DateTime         @default(now())
     updatedAt       DateTime         @updatedAt
-    category        Category         @relation(fields: [categoryId], references: [id])
+    category        Category?        @relation(fields: [categoryId], references: [id], onDelete: SetNull)
     ProductVariants ProductVariant[]
     ProductImages   ProductImage[]
     OrderItem       OrderItem[]
-    categoryId      Int
+    categoryId      Int?
     CartItem        CartItem[]
 
     @@index([slug])
@@ -59,7 +59,7 @@ model ProductVariant {
     createdAt      DateTime  @default(now())
     updatedAt      DateTime  @updatedAt
 
-    product  Product    @relation(fields: [productId], references: [id])
+    product  Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
     CartItem CartItem[]
 
     @@index([name])
@@ -73,7 +73,7 @@ model ProductImage {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    product Product @relation(fields: [productId], references: [id])
+    product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
     @@index([imageUrl])
 }
@@ -118,8 +118,8 @@ model OrderItem {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    order   Order   @relation(fields: [orderId], references: [id])
-    product Product @relation(fields: [productId], references: [id])
+    order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    product Product @relation(fields: [productId], references: [id], onDelete: NoAction)
 
     @@index([orderId])
 }
@@ -146,9 +146,9 @@ model CartItem {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    cart    Cart            @relation(fields: [cartId], references: [id])
-    product Product         @relation(fields: [productId], references: [id])
-    variant ProductVariant? @relation(fields: [variantId], references: [id])
+    cart    Cart            @relation(fields: [cartId], references: [id], onDelete: Cascade)
+    product Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+    variant ProductVariant? @relation(fields: [variantId], references: [id], onDelete: Cascade)
 
     @@index([cartId])
 }

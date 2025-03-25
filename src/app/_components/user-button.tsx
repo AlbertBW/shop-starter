@@ -1,3 +1,5 @@
+"use client";
+
 import { UserButton } from "@clerk/nextjs";
 import { Package } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -8,6 +10,7 @@ export default function UserButtonClerk({
   showUserName?: boolean;
 }) {
   const router = useRouter();
+
   return (
     <UserButton
       showName={showUserName}

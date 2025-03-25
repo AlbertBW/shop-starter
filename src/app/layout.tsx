@@ -9,6 +9,7 @@ import Navbar from "./_components/nav";
 import { ClerkThemeProvider } from "./_components/clerk-provider";
 import { SidebarProvider } from "./_components/ui/sidebar";
 import { AppSidebar } from "./_components/app-sidebar";
+import { ShoppingCartProvider } from "./_context/shopping-cart-context";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -37,13 +38,15 @@ export default function RootLayout({
         >
           <ClerkThemeProvider>
             <TRPCReactProvider>
-              <SidebarProvider>
-                <div className="mx-auto flex w-full max-w-screen-xl flex-col px-6">
-                  <AppSidebar />
-                  <Navbar />
-                  {children}
-                </div>
-              </SidebarProvider>
+              <ShoppingCartProvider>
+                <SidebarProvider>
+                  <div className="mx-auto flex w-full max-w-screen-xl flex-col px-6">
+                    <AppSidebar />
+                    <Navbar />
+                    {children}
+                  </div>
+                </SidebarProvider>
+              </ShoppingCartProvider>
             </TRPCReactProvider>
           </ClerkThemeProvider>
         </ThemeProvider>

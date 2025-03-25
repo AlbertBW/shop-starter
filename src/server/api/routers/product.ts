@@ -67,7 +67,6 @@ export const productRouter = createTRPCRouter({
         },
       });
 
-      console.log("products", products);
       return products;
     }),
 });

@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, ShoppingCart, UserCircle2Icon } from "lucide-react";
+import { Search, UserCircle2Icon } from "lucide-react";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import Link from "next/link";
 import { ModeToggle } from "./theme-toggle";
@@ -13,6 +13,7 @@ import {
   SiX,
   SiYoutube,
 } from "@icons-pack/react-simple-icons";
+import ShoppingCartMenu from "./shopping-cart";
 
 export const socialMediaLinks = [
   {
@@ -87,7 +88,7 @@ export default function Navbar() {
             <Search />
           </span>
 
-          <ShoppingCart />
+          <ShoppingCartMenu />
 
           <span className="hidden md:flex">
             <ModeToggle />

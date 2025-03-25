@@ -31,7 +31,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarContent className="text-highlight-1 py-4">
+      <SidebarContent className="py-4 text-highlight-1">
         <SidebarGroup>
           <SidebarGroupLabel className="sr-only">
             Social media links
@@ -107,17 +107,7 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SignedIn>
               </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton
-                  asChild
-                  className="hover:bg-inherit"
-                  data-active={firstParam === "cart"}
-                >
-                  <a href={"/cart"} className="text-xl font-extralight">
-                    <span>Cart</span>
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              <SidebarMenuItem></SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild className="hover:bg-inherit">
                   <MobileThemeToggle />

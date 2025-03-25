@@ -18,12 +18,15 @@ import ImageCarousel from "./image-carousel";
 import { useParams } from "next/navigation";
 import { useAuth } from "@clerk/nextjs";
 import { nanoid } from "nanoid";
+import { useShoppingCart } from "~/app/_context/shopping-cart-context";
+import { LoadingSpinnerSmall } from "~/app/_components/loading-spinner";
 
 export default function AddToCartForm() {
+  const { cart, isLoading } = useShoppingCart();
   const { slug } = useParams<{ slug: string }>();
   const [sessionId, setSessionId] = useState<string>();
   const { userId } = useAuth();
-  const [selectedVariant, setSelectedVariant] = useState<number>();
+  const [selectedVariant, setSelectedVariant] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [product] = api.product.getBySlug.useSuspenseQuery({ slug });
 
@@ -47,10 +50,9 @@ export default function AddToCartForm() {
   const createCartItem = api.cart.addCartItem.useMutation({
     onSuccess: async () => {
       setError(null);
-      await utils.cart.getCartItems.invalidate();
+      await utils.cart.getCart.invalidate();
     },
     onError: (error) => {
-      console.error(error.message);
       setError(error.message);
     },
   });
@@ -123,13 +125,28 @@ export default function AddToCartForm() {
 
           <Button
             type="submit"
-            className="w-full rounded-none border-0 px-8 py-6 text-lg font-light transition-colors md:w-fit"
+            className="w-full min-w-52 rounded-none border-0 px-8 py-6 text-lg font-light transition-colors md:w-fit"
             disabled={
-              product.stock <= 0 ||
-              (product.ProductVariants.length > 0 && !selectedVariant)
+              (product.stock <= 0 ||
+                (product.ProductVariants.length > 0 && !selectedVariant) ||
+                cart?.items.some(
+                  (i) =>
+                    i.productId === product.id &&
+                    i.variantId === selectedVariant,
+                )) ??
+              (createCartItem.isPending || isLoading)
             }
           >
-            ADD TO CART
+            {createCartItem.isPending || isLoading ? (
+              <LoadingSpinnerSmall variant="secondary" />
+            ) : cart?.items.some(
+                (i) =>
+                  i.productId === product.id && i.variantId === selectedVariant,
+              ) ? (
+              "IN CART"
+            ) : (
+              "ADD TO CART"
+            )}
           </Button>
 
           {error && <p className="text-red-500">Error: {error}</p>}

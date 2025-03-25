@@ -17,7 +17,7 @@ export const categoryRouter = createTRPCRouter({
     const categories = await ctx.db.category.findMany({
       include: { _count: true },
     });
-    console.log("categories", categories);
+
     return categories;
   }),
 });

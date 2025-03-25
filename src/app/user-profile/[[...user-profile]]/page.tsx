@@ -23,7 +23,7 @@ export default function UserProfilePage() {
   }
 
   if (!isSignedIn) {
-    return router.push("/sign-in");
+    router.push("/sign-in");
   }
 
   return (
