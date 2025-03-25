@@ -14,6 +14,25 @@ export const productRouter = createTRPCRouter({
       });
     }),
 
+  getBySlug: publicProcedure
+    .input(z.object({ slug: z.string().min(1) }))
+    .query(async ({ ctx, input }) => {
+      const product = await ctx.db.product.findUnique({
+        where: {
+          slug: input.slug,
+        },
+        include: {
+          ProductImages: true,
+          ProductVariants: true,
+        },
+      });
+
+      if (!product) {
+        throw new Error("Product not found");
+      }
+      return product;
+    }),
+
   getAll: publicProcedure
     .input(
       z.object({

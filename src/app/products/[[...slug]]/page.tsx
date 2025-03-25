@@ -107,7 +107,7 @@ async function ProductsList({
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {products.map((product) => (
         <Link
-          href={`/products/${product.slug}`}
+          href={`/product/${product.slug}`}
           key={product.id}
           className="flex flex-col gap-2 pb-4"
         >
