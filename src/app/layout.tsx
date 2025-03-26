@@ -45,7 +45,7 @@ export default function RootLayout({
               <ShoppingCartProvider>
                 <SidebarProvider>
                   <div className="flex w-full flex-col">
-                    <div className="mx-auto flex min-h-screen w-full max-w-screen-xl flex-col px-6 pb-24">
+                    <div className="mx-auto flex min-h-screen w-full max-w-screen-xl flex-col px-6 pb-12">
                       <AppSidebar />
                       <Navbar />
                       {children}
