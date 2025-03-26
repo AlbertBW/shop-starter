@@ -1,6 +1,8 @@
 import { api } from "~/trpc/server";
 import BackLink from "../_components/back-link";
 import AddToCartForm from "../_components/add-to-cart-form";
+import { Suspense } from "react";
+import LoadingSpinner from "~/app/_components/loading-spinner";
 
 export default async function ProductPage({
   params,
@@ -17,7 +19,9 @@ export default async function ProductPage({
         <BackLink />
       </div>
 
-      <AddToCartForm />
+      <Suspense fallback={<LoadingSpinner />}>
+        <AddToCartForm />
+      </Suspense>
     </div>
   );
 }

@@ -60,9 +60,6 @@ export const cartRouter = createTRPCRouter({
       const userId = ctx.userId;
       const { cartSessionId } = input;
 
-      console.log("UserId", userId);
-      console.log("SessionId", cartSessionId);
-
       if (!userId && !cartSessionId) {
         throw new TRPCError({
           code: "UNAUTHORIZED",

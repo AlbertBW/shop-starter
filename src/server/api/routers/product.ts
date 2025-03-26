@@ -1,3 +1,4 @@
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { PRODUCTS_PER_PAGE } from "~/lib/constants";
 import { orderBySchema } from "~/lib/types";
@@ -28,7 +29,10 @@ export const productRouter = createTRPCRouter({
       });
 
       if (!product) {
-        throw new Error("Product not found");
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Product not found",
+        });
       }
       return product;
     }),
@@ -38,14 +42,18 @@ export const productRouter = createTRPCRouter({
       z.object({
         categoryId: z.number().optional(),
         orderBy: orderBySchema.optional(),
+        limit: z.number().optional(),
         page: z.number().optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
+      const take = input.limit ?? PRODUCTS_PER_PAGE;
+      const skip = input.page ? (input.page - 1) * take : 0;
+
       const products = await ctx.db.product.findMany({
         include: { ProductImages: { take: 1 } },
-        take: PRODUCTS_PER_PAGE,
-        skip: input.page ? (input.page - 1) * PRODUCTS_PER_PAGE : 0,
+        take,
+        skip,
         orderBy: {
           createdAt: input.orderBy === "latest" ? "asc" : undefined,
           sold: input.orderBy === "popular" ? "desc" : undefined,

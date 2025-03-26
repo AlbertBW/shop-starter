@@ -2,7 +2,7 @@
 
 import { useAuth, UserProfile } from "@clerk/nextjs";
 import { Package } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import LoadingSpinner from "~/app/_components/loading-spinner";
 
 function OrdersPage() {
@@ -16,14 +16,13 @@ function OrdersPage() {
 
 export default function UserProfilePage() {
   const { isLoaded, isSignedIn } = useAuth();
-  const router = useRouter();
 
   if (!isLoaded) {
     <LoadingSpinner />;
   }
 
   if (!isSignedIn) {
-    router.push("/sign-in");
+    redirect("/sign-in");
   }
 
   return (

@@ -1,14 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
+import { api } from "~/trpc/server";
+import { createPriceString } from "./_lib/utils";
 
 export default async function Home() {
+  const latestProduct = await api.product.getAll({
+    limit: 3,
+    orderBy: "latest",
+  });
+
+  const popularProduct = await api.product.getAll({
+    limit: 3,
+    orderBy: "popular",
+  });
+
   return (
-    <main className="flex animate-fade-in flex-col items-center justify-center">
+    <main className="flex animate-fade-in flex-col items-center justify-center gap-4">
       <div className="flex h-full w-full flex-col md:flex-row">
         <div className="group relative w-full bg-highlight-1 md:w-1/2 lg:w-2/3">
           <Image
             src="https://c4kzitkhtxdwhtej.public.blob.vercel-storage.com/hero-med-RIlp74S0NwhdxY7z5VqPjZ3hc0M09B.jpg"
-            alt="Headphones"
+            alt="hero"
             priority={true}
             width={1920}
             height={1920}
@@ -49,7 +61,79 @@ export default async function Home() {
         </div>
       </div>
 
-      <div></div>
+      <div>
+        <h2 className="text-highlight my-10 text-center text-3xl font-thin tracking-wide">
+          Latest Products
+        </h2>
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          {latestProduct.map((product) => (
+            <Link
+              key={product.id}
+              href={`/product/${product.slug}`}
+              className="group relative w-72 overflow-hidden rounded-lg bg-highlight-1 p-4"
+            >
+              <Image
+                src={product.ProductImages[0]?.imageUrl ?? ""}
+                alt={product.name}
+                width={300}
+                height={300}
+                className="aspect-square h-auto w-full rounded-lg object-cover transition-transform duration-200 group-hover:scale-105"
+              />
+              <div className="absolute bottom-2 left-2 rounded-tr-lg bg-highlight-1 px-2 py-1 text-secondary transition-all duration-200 group-hover:bottom-0 group-hover:left-0">
+                {product.name}
+              </div>
+              <div className="absolute bottom-2 right-2 rounded-tl-lg bg-highlight-1 px-2 py-1 text-secondary transition-all duration-200 group-hover:bottom-0 group-hover:right-0">
+                {createPriceString(product.price, product.currency)}
+              </div>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-6 flex justify-center">
+          <Link
+            href="/products?orderBy=latest"
+            className="bg-highlight-1 px-6 py-3 font-semibold uppercase text-highlight-2 transition-colors hover:bg-highlight-2 hover:text-highlight-1"
+          >
+            View All Latest
+          </Link>
+        </div>
+      </div>
+
+      <div>
+        <h2 className="my-10 text-center text-3xl font-thin tracking-wide text-highlight-1">
+          Popular Products
+        </h2>
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          {popularProduct.map((product) => (
+            <Link
+              key={product.id}
+              href={`/product/${product.slug}`}
+              className="group relative w-72 overflow-hidden rounded-lg bg-highlight-1 p-4"
+            >
+              <Image
+                src={product.ProductImages[0]?.imageUrl ?? ""}
+                alt={product.name}
+                width={300}
+                height={300}
+                className="aspect-square h-auto w-full rounded-lg object-cover transition-transform duration-200 group-hover:scale-105"
+              />
+              <div className="absolute bottom-2 left-2 rounded-tr-lg bg-highlight-1 px-2 py-1 text-secondary transition-all duration-200 group-hover:bottom-0 group-hover:left-0">
+                {product.name}
+              </div>
+              <div className="absolute bottom-2 right-2 rounded-tl-lg bg-highlight-1 px-2 py-1 text-secondary transition-all duration-200 group-hover:bottom-0 group-hover:right-0">
+                {createPriceString(product.price, product.currency)}
+              </div>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-6 flex justify-center">
+          <Link
+            href="/products"
+            className="bg-highlight-1 px-6 py-3 font-semibold uppercase text-highlight-2 transition-colors hover:bg-highlight-2 hover:text-highlight-1"
+          >
+            View All Popular
+          </Link>
+        </div>
+      </div>
     </main>
   );
 }

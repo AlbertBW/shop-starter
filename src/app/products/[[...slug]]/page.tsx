@@ -33,7 +33,7 @@ export default async function Products({
   const suspenseKey = `products-${slug?.[0] ?? "all"}-${orderBy}-${page}`;
 
   return (
-    <div className="flex gap-4 pb-12">
+    <div className="flex gap-4">
       <div className="hidden min-w-44 px-4 md:block">
         <ul className="flex flex-col gap-8 text-muted-foreground">
           <li>

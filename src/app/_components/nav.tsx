@@ -7,36 +7,8 @@ import { ModeToggle } from "./theme-toggle";
 import { usePathname } from "next/navigation";
 import { SidebarTrigger } from "./ui/sidebar";
 import UserButtonClerk from "./user-button";
-import {
-  SiInstagram,
-  SiFacebook,
-  SiX,
-  SiYoutube,
-} from "@icons-pack/react-simple-icons";
 import ShoppingCartMenu from "./shopping-cart";
-
-export const socialMediaLinks = [
-  {
-    title: "Facebook",
-    url: "https://www.facebook.com/",
-    icon: SiFacebook,
-  },
-  {
-    title: "Instagram",
-    url: "https://www.instagram.com/",
-    icon: SiInstagram,
-  },
-  {
-    title: "Twitter",
-    url: "https://twitter.com/",
-    icon: SiX,
-  },
-  {
-    title: "YouTube",
-    url: "https://www.youtube.com/",
-    icon: SiYoutube,
-  },
-];
+import { siteConfig } from "~/config/site";
 
 export const navItems = [
   {
@@ -65,7 +37,7 @@ export default function Navbar() {
     <nav className="py-6">
       <div className="flex flex-row md:pt-4">
         <div className="flex items-center gap-4 text-highlight-1 md:w-full">
-          {socialMediaLinks.map((link) => (
+          {Object.values(siteConfig.links).map((link) => (
             <Link
               key={link.title}
               href={link.url}
@@ -80,8 +52,8 @@ export default function Navbar() {
             <SidebarTrigger />
           </div>
         </div>
-        <h3 className="w-full text-center text-2xl font-light">
-          <Link href={"/"}>COMPANY NAME</Link>
+        <h3 className="w-full text-center text-2xl font-light uppercase">
+          <Link href={"/"}>{siteConfig.name}</Link>
         </h3>
         <div className="flex items-center justify-end gap-4 text-highlight-1 md:w-full">
           <span className="hidden md:block">

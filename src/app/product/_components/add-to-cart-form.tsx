@@ -13,33 +13,20 @@ import { Input } from "~/app/_components/ui/input";
 import { Button } from "~/app/_components/ui/button";
 import { api } from "~/trpc/react";
 import { createPriceString } from "~/app/_lib/utils";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ImageCarousel from "./image-carousel";
 import { useParams } from "next/navigation";
-import { useAuth } from "@clerk/nextjs";
-import { nanoid } from "nanoid";
 import { useShoppingCart } from "~/app/_context/shopping-cart-context";
 import { LoadingSpinnerSmall } from "~/app/_components/loading-spinner";
+import { useLocalStorage } from "~/app/_hooks/use-local-storage";
 
 export default function AddToCartForm() {
   const { cart, isLoading } = useShoppingCart();
   const { slug } = useParams<{ slug: string }>();
-  const [sessionId, setSessionId] = useState<string>();
-  const { userId } = useAuth();
   const [selectedVariant, setSelectedVariant] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [product] = api.product.getBySlug.useSuspenseQuery({ slug });
-
-  useEffect(() => {
-    if (!userId) {
-      let storedSessionId = localStorage.getItem("cart_session_id");
-      if (!storedSessionId) {
-        storedSessionId = nanoid();
-        localStorage.setItem("cart_session_id", storedSessionId);
-      }
-      setSessionId(storedSessionId);
-    }
-  }, [userId]);
+  const { sessionId } = useLocalStorage();
 
   const price = selectedVariant
     ? (product.ProductVariants.find((variant) => variant.id === selectedVariant)
@@ -74,7 +61,7 @@ export default function AddToCartForm() {
           onSubmit={(e) => {
             e.preventDefault();
             createCartItem.mutate({
-              sessionId: sessionId,
+              sessionId: sessionId ?? undefined,
               productId: product.id,
               variantId: selectedVariant,
               quantity: 1,

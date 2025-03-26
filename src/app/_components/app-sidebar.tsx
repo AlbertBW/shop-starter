@@ -13,11 +13,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "~/app/_components/ui/sidebar";
-import { navItems, socialMediaLinks } from "./nav";
+import { navItems } from "./nav";
 import { Separator } from "./ui/separator";
 import { SignedIn, SignedOut, SignOutButton } from "@clerk/nextjs";
 import { MobileThemeToggle } from "./theme-toggle";
 import { usePathname } from "next/navigation";
+import { siteConfig } from "~/config/site";
 
 export function AppSidebar() {
   const { isMobile } = useSidebar();
@@ -38,7 +39,7 @@ export function AppSidebar() {
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="flex flex-row justify-center gap-4">
-              {socialMediaLinks.map((item) => (
+              {Object.values(siteConfig.links).map((item) => (
                 <SidebarMenuItem key={item.title} className="w-fit">
                   <SidebarMenuButton className="size-6 w-fit p-0 hover:bg-transparent">
                     <Link href={item.url} target="_blank">
@@ -107,7 +108,6 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SignedIn>
               </SidebarMenuItem>
-              <SidebarMenuItem></SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild className="hover:bg-inherit">
                   <MobileThemeToggle />

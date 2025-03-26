@@ -12,10 +12,10 @@
     --background: 0 0% 100%;
     --foreground: 0 0% 0%;
     --highlight-1: 180, 18%, 11%; /* Eerie black */
-    --highlight-2: 10, 32%, 85%; /* Pale Dogwood */
+    --highlight-2: 10, 25%, 95%; /* Pale Dogwood */
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
-    --popover: 10, 32%, 85%; /* Pale Dogwood */
+    --popover: 10, 25%, 95%; /* Pale Dogwood */
     --popover-foreground: 180, 18%, 11%; /* Eerie black */
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
@@ -36,7 +36,7 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    --sidebar-background: 10, 32%, 85%; /* Pale Dogwood */
+    --sidebar-background: 10, 25%, 95%; /* Pale Dogwood */
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
     --sidebar-primary-foreground: 0 0% 98%;
@@ -48,12 +48,12 @@
   .dark {
     --background: 0 0% 0%;
     --foreground: 0 0% 98%;
-    --highlight-1: 10, 32%, 85%; /* Pale Dogwood */
+    --highlight-1: 10, 25%, 95%; /* Pale Dogwood */
     --highlight-2: 180, 18%, 11%; /* Eerie black */
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
     --popover: 180, 18%, 11%; /* Eerie black */
-    --popover-foreground: 10, 32%, 85%; /* Pale Dogwood */
+    --popover-foreground: 10, 25%, 95%; /* Pale Dogwood */
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
