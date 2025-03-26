@@ -1,4 +1,4 @@
-import { api } from "~/trpc/server";
+import { api, HydrateClient } from "~/trpc/server";
 import BackLink from "../_components/back-link";
 import AddToCartForm from "../_components/add-to-cart-form";
 import { Suspense } from "react";
@@ -11,17 +11,19 @@ export default async function ProductPage({
 }) {
   const { slug } = await params;
 
-  void (await api.product.getBySlug({ slug }));
+  void (await api.product.getBySlug.prefetch({ slug }));
 
   return (
-    <div className="flex flex-col py-2">
-      <div>
-        <BackLink />
-      </div>
+    <HydrateClient>
+      <div className="flex flex-col py-2">
+        <div>
+          <BackLink />
+        </div>
 
-      <Suspense fallback={<LoadingSpinner />}>
-        <AddToCartForm />
-      </Suspense>
-    </div>
+        <Suspense fallback={<LoadingSpinner />}>
+          <AddToCartForm />
+        </Suspense>
+      </div>
+    </HydrateClient>
   );
 }

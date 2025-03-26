@@ -13,10 +13,10 @@ import { VisuallyHidden } from "radix-ui";
 
 export function MobileProductSidebar({
   categories,
-  slug,
+  param,
 }: {
   categories: Category[];
-  slug?: string[];
+  param?: string;
 }) {
   return (
     <div className="w-full md:hidden">
@@ -43,7 +43,7 @@ export function MobileProductSidebar({
                 <Link
                   href={`/products`}
                   className="hover:text-primary data-[active=true]:text-primary"
-                  data-active={!slug}
+                  data-active={!param}
                 >
                   All Products
                 </Link>
@@ -52,7 +52,7 @@ export function MobileProductSidebar({
                 <li key={category.id}>
                   <Link
                     href={`/products/${category.slug}`}
-                    data-active={category.slug === slug?.[0] ? true : undefined}
+                    data-active={category.slug === param ? true : undefined}
                     className="hover:text-primary data-[active=true]:text-primary"
                   >
                     {category.name}

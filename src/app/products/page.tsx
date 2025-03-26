@@ -1,36 +1,42 @@
 import { api } from "~/trpc/server";
 import Link from "next/link";
-import { SelectOrderBy } from "../_components/select-order-by";
+import { SelectOrderBy } from "./_components/select-order-by";
 import { Suspense } from "react";
 import LoadingSpinner from "~/app/_components/loading-spinner";
-import ProductPagination from "../_components/product-pagination";
+import ProductPagination from "./_components/product-pagination";
 import { createPriceString } from "~/app/_lib/utils";
 import { type OrderByOptions } from "~/lib/types";
-import { MobileProductSidebar } from "../_components/product-sidebar";
+import { MobileProductSidebar } from "./_components/product-sidebar";
 
 export default async function Products({
-  params,
   searchParams,
 }: {
-  params: Promise<{ slug?: string[] }>;
-  searchParams: Promise<{ orderBy?: OrderByOptions; page?: string }>;
+  searchParams: Promise<{
+    category?: string;
+    orderBy?: OrderByOptions;
+    page?: string;
+  }>;
 }) {
-  const { slug } = await params;
-  const { orderBy = "popular", page } = await searchParams;
+  const {
+    category: categoryParam,
+    orderBy = "popular",
+    page,
+  } = await searchParams;
   const categories = await api.category.getAll();
 
-  const selectedCategory =
-    slug && categories.find((category) => category.slug === slug[0]);
+  const selectedCategory = categories.find(
+    (category) => category.slug === categoryParam,
+  );
 
   const productCount = categories.reduce((acc, category) => {
-    if (category.slug === slug?.[0] || !slug) {
+    if (category.slug === categoryParam || !categoryParam) {
       return acc + category._count.Product;
     }
     return acc;
   }, 0);
 
   const pages = Math.ceil(productCount / 12);
-  const suspenseKey = `products-${slug?.[0] ?? "all"}-${orderBy}-${page}`;
+  const suspenseKey = `products-${categoryParam ?? "all"}-${orderBy}-${page}`;
 
   return (
     <div className="flex gap-4">
@@ -40,7 +46,7 @@ export default async function Products({
             <Link
               href={`/products`}
               className="hover:text-primary data-[active=true]:text-primary"
-              data-active={!slug}
+              data-active={!categoryParam}
             >
               All Products
             </Link>
@@ -48,8 +54,8 @@ export default async function Products({
           {categories.map((category) => (
             <li key={category.id}>
               <Link
-                href={`/products/${category.slug}`}
-                data-active={category.slug === slug?.[0] ? true : undefined}
+                href={`/products?category=${category.slug}`}
+                data-active={category.slug === categoryParam ? true : undefined}
                 className="hover:text-primary data-[active=true]:text-primary"
               >
                 {category.name}
@@ -65,7 +71,10 @@ export default async function Products({
             {selectedCategory ? selectedCategory.name : "All Products"}
           </h1>
           <div className="flex items-center gap-4">
-            <MobileProductSidebar categories={categories} slug={slug} />
+            <MobileProductSidebar
+              categories={categories}
+              param={categoryParam}
+            />
             <SelectOrderBy />
           </div>
         </div>
