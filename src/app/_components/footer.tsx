@@ -20,7 +20,7 @@ export default function Footer() {
             </Link>
           ))}
         </div>
-        <div className="flex flex-row items-center justify-evenly">
+        <div className="flex flex-col items-center justify-evenly gap-2 md:flex-row">
           <p>
             &copy; {new Date().getFullYear()} {siteConfig.name}. All rights
             reserved.
