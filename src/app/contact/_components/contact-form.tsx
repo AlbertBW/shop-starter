@@ -25,7 +25,7 @@ export default function ContactForm() {
       onSubmit={handleSubmit}
       className="flex w-full max-w-md flex-col space-y-4"
     >
-      <div className="group relative flex h-14 w-96 flex-col justify-end border border-transparent border-b-border px-2 pb-1 focus-within:border-primary">
+      <div className="group relative flex h-14 w-full flex-col justify-end border border-transparent border-b-border px-2 pb-1 focus-within:border-primary">
         <Label htmlFor="email" className="sr-only">
           Email Address
         </Label>
@@ -53,7 +53,7 @@ export default function ContactForm() {
         placeholder="Message"
         rows={4}
         required
-        className="rounded-none text-lg font-light text-muted-foreground md:text-lg"
+        className="rounded-none text-lg text-muted-foreground"
       />
       <ValidationError
         prefix="Message"
@@ -64,7 +64,7 @@ export default function ContactForm() {
       <Button
         type="submit"
         disabled={state.submitting}
-        className="rounded-none"
+        className="rounded-none font-light uppercase tracking-widest"
       >
         Submit
       </Button>
