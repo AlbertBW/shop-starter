@@ -11,7 +11,7 @@ export async function createCheckoutSession(sessionCreate: SessionCreate) {
   const session = await stripe.checkout.sessions.create({
     ...sessionCreate,
     success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/checkout/cancel`,
+    cancel_url: `${origin}/checkout/cancel?session_id={CHECKOUT_SESSION_ID}`,
   });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

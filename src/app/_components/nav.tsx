@@ -71,7 +71,7 @@ export default function Navbar() {
             </SignedIn>
 
             <SignedOut>
-              <SignInButton>
+              <SignInButton mode="modal">
                 <button>
                   <UserCircle2Icon />
                 </button>

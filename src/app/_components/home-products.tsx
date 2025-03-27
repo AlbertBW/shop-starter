@@ -18,7 +18,7 @@ export default function HomeProducts({ orderBy }: { orderBy: OrderByOptions }) {
         <Link
           key={product.id}
           href={`/product/${product.slug}`}
-          className="group relative w-72 overflow-hidden rounded-lg bg-highlight-1 p-4"
+          className="group relative w-72 overflow-hidden rounded-lg bg-highlight-2 p-4 shadow-md"
         >
           <Image
             src={product.ProductImages[0]?.imageUrl ?? ""}
@@ -27,10 +27,10 @@ export default function HomeProducts({ orderBy }: { orderBy: OrderByOptions }) {
             height={300}
             className="aspect-square h-auto w-full rounded-lg object-cover transition-transform duration-200 group-hover:scale-105"
           />
-          <div className="absolute bottom-2 left-2 rounded-tr-lg bg-highlight-1 px-2 py-1 text-secondary transition-all duration-200 group-hover:bottom-0 group-hover:left-0">
+          <div className="absolute bottom-2 left-2 rounded-tr-lg bg-highlight-2 px-2 py-1 text-highlight-1 transition-all duration-200 group-hover:bottom-0 group-hover:left-0">
             {product.name}
           </div>
-          <div className="absolute bottom-2 right-2 rounded-tl-lg bg-highlight-1 px-2 py-1 text-secondary transition-all duration-200 group-hover:bottom-0 group-hover:right-0">
+          <div className="absolute bottom-2 right-2 rounded-tl-lg bg-highlight-2 px-2 py-1 text-highlight-1 transition-all duration-200 group-hover:bottom-0 group-hover:right-0">
             {createPriceString(product.price, product.currency)}
           </div>
         </Link>
@@ -45,7 +45,7 @@ export function HomeProductsSkeleton() {
       {Array.from({ length: 3 }).map((_, index) => (
         <div
           key={index}
-          className="h-72 w-72 animate-pulse overflow-hidden rounded-lg bg-highlight-1 p-4"
+          className="h-72 w-72 animate-pulse overflow-hidden rounded-lg bg-highlight-2 p-4"
         ></div>
       ))}
     </div>

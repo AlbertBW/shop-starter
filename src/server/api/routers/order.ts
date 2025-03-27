@@ -67,7 +67,7 @@ export const orderRouter = createTRPCRouter({
       const newOrder = await ctx.db.order.create({
         data: {
           email: input.email,
-          orderNumber: nanoid(),
+          orderNumber: nanoid(10),
           paymentStatus: "pending",
           shippingCost: 499,
           total: totalCost,
@@ -178,5 +178,30 @@ export const orderRouter = createTRPCRouter({
           ShippingAddress: true,
         },
       });
+    }),
+
+  deleteOrder: publicProcedure
+    .input(z.object({ stripeSessionId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const stripeSession = await getStripeCheckoutSession(
+        input.stripeSessionId,
+      );
+      const orderId = stripeSession.metadata?.order_id;
+      const orderIdValidated = z.coerce.number().parse(orderId);
+
+      const existingOrder = await ctx.db.order.findUnique({
+        where: { id: orderIdValidated },
+        select: { id: true },
+      });
+
+      if (!existingOrder) {
+        return null;
+      }
+
+      const order = await ctx.db.order.delete({
+        where: { id: orderIdValidated },
+      });
+
+      return order;
     }),
 });

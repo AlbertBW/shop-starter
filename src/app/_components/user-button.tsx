@@ -4,16 +4,12 @@ import { UserButton } from "@clerk/nextjs";
 import { Package } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export default function UserButtonClerk({
-  showUserName,
-}: {
-  showUserName?: boolean;
-}) {
+export default function UserButtonClerk({ ...props }) {
   const router = useRouter();
 
   return (
     <UserButton
-      showName={showUserName}
+      {...props}
       userProfileMode="navigation"
       userProfileUrl="/user-profile"
     >

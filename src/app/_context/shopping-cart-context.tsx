@@ -132,7 +132,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   }
 
   function clearCart() {
-    console.log("sessionId", sessionId);
     deleteCartItems.mutate({
       cartSessionId: sessionId ?? null,
     });

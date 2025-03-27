@@ -36,7 +36,6 @@ export default async function SuccessPage({
 
       <div className="mb-8 rounded-lg border border-border bg-background p-6">
         <div className="flex flex-col gap-6 md:flex-row md:gap-10">
-          {/* Order Summary */}
           <div className="rounded-lg bg-highlight-2/20 p-4 md:w-1/2">
             <h2 className="mb-4 text-xl font-light tracking-wide text-highlight-1">
               Order Summary
@@ -63,7 +62,6 @@ export default async function SuccessPage({
             </div>
           </div>
 
-          {/* Delivery Address */}
           <div className="md:w-1/2">
             <h2 className="mb-4 text-xl font-light tracking-wide text-highlight-1">
               Delivery Address
@@ -83,7 +81,6 @@ export default async function SuccessPage({
         </div>
       </div>
 
-      {/* Order Items */}
       <div className="mb-8">
         <h2 className="mb-4 text-xl font-light tracking-wide text-highlight-1">
           Order Items
@@ -136,7 +133,6 @@ export default async function SuccessPage({
         </div>
       </div>
 
-      {/* Actions */}
       <div className="no-print mt-8 flex flex-col items-center gap-6">
         {user ? (
           <div className="flex flex-wrap justify-center gap-6">
