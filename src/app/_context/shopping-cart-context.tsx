@@ -11,6 +11,7 @@ import {
   useEffect,
 } from "react";
 import { useAuth } from "@clerk/nextjs";
+import { createPriceString } from "../_lib/utils";
 
 type ShoppingCartProviderProps = {
   children: ReactNode;
@@ -23,9 +24,15 @@ type ShoppingCartContext = {
   decreaseItemQuantity: (id: number) => void;
   removeFromCart: (id: number) => void;
   cartQuantity: number;
+  subtotalPrice: number;
+  subtotalPriceString: string;
+  currency: string;
   cart: CartType;
   isLoading: boolean;
   isSubmitting: boolean;
+  clearCart: () => void;
+  applyCouponCode: (code: string) => void;
+  removeCouponCode: (code: string) => void;
 };
 
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
@@ -46,6 +53,11 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     },
   });
   const updateItemQuantity = api.cart.updateCartItemQuantity.useMutation({
+    onSuccess: async () => {
+      await utils.cart.getCart.invalidate();
+    },
+  });
+  const deleteCartItems = api.cart.clearCart.useMutation({
     onSuccess: async () => {
       await utils.cart.getCart.invalidate();
     },
@@ -107,9 +119,42 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     });
   }
 
+  function applyCouponCode(code: string) {
+    // Implement coupon code logic here
+    // This is just a placeholder function
+    console.log(`Applying coupon code: ${code}`);
+  }
+
+  function removeCouponCode(code: string) {
+    // Implement coupon code removal logic here
+    // This is just a placeholder function
+    console.log(`Removing coupon code: ${code}`);
+  }
+
+  function clearCart() {
+    console.log("sessionId", sessionId);
+    deleteCartItems.mutate({
+      cartSessionId: sessionId ?? null,
+    });
+  }
+
   const cartQuantity = cart?.items.reduce((quantity, item) => {
     return quantity + item.quantity;
   }, 0);
+
+  const subtotalPrice =
+    cart?.items.reduce((total, item) => {
+      const itemPrice = item.variant
+        ? item.variant.price * item.quantity
+        : item.product.price * item.quantity;
+      return total + itemPrice;
+    }, 0) ?? 0;
+
+  const subtotalPriceString = cart?.items[0]
+    ? createPriceString(subtotalPrice, cart?.items[0].product.currency)
+    : "";
+
+  const currency = cart?.items[0]?.product.currency ?? "";
 
   return (
     <ShoppingCartContext.Provider
@@ -118,9 +163,15 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         decreaseItemQuantity,
         removeFromCart,
         cartQuantity: cartQuantity ?? 0,
+        subtotalPrice,
+        subtotalPriceString,
+        currency,
         isLoading: isLoading || !isInitialised,
         isSubmitting: deleteCartItem.isPending || updateItemQuantity.isPending,
         cart,
+        clearCart,
+        applyCouponCode,
+        removeCouponCode,
       }}
     >
       {children}

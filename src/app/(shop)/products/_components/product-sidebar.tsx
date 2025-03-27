@@ -51,7 +51,7 @@ export function MobileProductSidebar({
               {categories.map((category) => (
                 <li key={category.id}>
                   <Link
-                    href={`/products/${category.slug}`}
+                    href={`/products?category=${category.slug}`}
                     data-active={category.slug === param ? true : undefined}
                     className="hover:text-primary data-[active=true]:text-primary"
                   >

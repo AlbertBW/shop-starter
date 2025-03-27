@@ -3,7 +3,7 @@ import Link from "next/link";
 import { api, HydrateClient } from "~/trpc/server";
 import HomeProducts, {
   HomeProductsSkeleton,
-} from "./_components/home-products";
+} from "../_components/home-products";
 import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";

@@ -4,6 +4,7 @@ import { Check, Pencil, ShoppingCart, Trash } from "lucide-react";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -15,6 +16,7 @@ import { Button } from "./ui/button";
 import { createPriceString } from "../_lib/utils";
 import Link from "next/link";
 import { useState } from "react";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 export default function ShoppingCartMenu() {
   const {
@@ -60,6 +62,9 @@ export default function ShoppingCartMenu() {
           <SheetTitle className="text-center text-xl font-extralight text-highlight-1">
             Shopping Cart
           </SheetTitle>
+          <VisuallyHidden>
+            <SheetDescription>Your shopping cart</SheetDescription>
+          </VisuallyHidden>
           <Separator className="bg-highlight-1" />
         </SheetHeader>
         <div className="grid gap-4 py-4">
@@ -108,7 +113,7 @@ export default function ShoppingCartMenu() {
                               )}
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              Quantity: {item.quantity}
+                              Qty: {item.quantity}
                             </p>
                           </div>
                         </Link>
@@ -202,7 +207,9 @@ export default function ShoppingCartMenu() {
                       </span>
                     </div>
                     <Separator className="bg-highlight-1" />
-                    <Button className="rounded-none">Checkout</Button>
+                    <Link href={"/checkout"} className="w-full">
+                      <Button className="w-full rounded-none">Checkout</Button>
+                    </Link>
                   </>
                 </>
               ) : (

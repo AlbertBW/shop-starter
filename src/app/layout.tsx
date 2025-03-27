@@ -4,13 +4,10 @@ import { type Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "./_components/theme-provider";
 import { TRPCReactProvider } from "~/trpc/react";
-import Navbar from "./_components/nav";
 import { ClerkThemeProvider } from "./_components/clerk-provider";
-import { SidebarProvider } from "./_components/ui/sidebar";
-import { AppSidebar } from "./_components/app-sidebar";
-import { ShoppingCartProvider } from "./_context/shopping-cart-context";
-import Footer from "./_components/footer";
 import { siteConfig } from "~/config/site";
+import { SidebarProvider } from "./_components/ui/sidebar";
+import { ShoppingCartProvider } from "./_context/shopping-cart-context";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -43,16 +40,7 @@ export default function RootLayout({
           <ClerkThemeProvider>
             <TRPCReactProvider>
               <ShoppingCartProvider>
-                <SidebarProvider>
-                  <div className="flex w-full flex-col">
-                    <div className="mx-auto flex min-h-screen w-full max-w-screen-xl flex-col px-6 pb-12">
-                      <AppSidebar />
-                      <Navbar />
-                      {children}
-                    </div>
-                    <Footer />
-                  </div>
-                </SidebarProvider>
+                <SidebarProvider>{children}</SidebarProvider>
               </ShoppingCartProvider>
             </TRPCReactProvider>
           </ClerkThemeProvider>

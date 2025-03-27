@@ -6,6 +6,9 @@ export default {
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
+      screens: {
+        print: { raw: "print" }, // Define the print screen
+      },
       fontFamily: {
         sans: ["var(--font-inter)", ...fontFamily.sans],
       },

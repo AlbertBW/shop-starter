@@ -275,7 +275,41 @@ export const cartRouter = createTRPCRouter({
 
       await ctx.db.cartItem.update({
         where: { id: cartItem.id },
-        data: { quantity },
+        data: { quantity, cart: { update: { updatedAt: new Date() } } },
+      });
+
+      return true;
+    }),
+
+  clearCart: publicProcedure
+    .input(z.object({ cartSessionId: z.string().nullable() }))
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.userId;
+      const { cartSessionId } = input;
+
+      if (!userId && !cartSessionId) {
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "User not authenticated and no session ID provided",
+        });
+      }
+
+      const cart = await ctx.db.cart.findFirst({
+        where: {
+          sessionId: !userId ? cartSessionId : null,
+          userId,
+        },
+      });
+
+      if (!cart) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Cart not found",
+        });
+      }
+
+      await ctx.db.cart.deleteMany({
+        where: { id: cart.id },
       });
 
       return true;

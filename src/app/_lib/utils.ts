@@ -13,5 +13,5 @@ export function createPriceString(
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
-  }).format(price);
+  }).format(price / 100);
 }

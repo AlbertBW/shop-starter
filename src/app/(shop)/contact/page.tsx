@@ -3,7 +3,7 @@ import { siteConfig } from "~/config/site";
 
 export default function Contact() {
   return (
-    <main className="flex w-full flex-col items-center justify-center py-12">
+    <main className="flex w-full flex-col items-center justify-center py-6">
       <section className="relative mb-16 w-full text-center">
         <h1 className="mb-4 text-4xl font-light">Get in touch</h1>
         <div className="mx-auto mb-8 h-1 w-24 bg-primary" />

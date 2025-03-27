@@ -34,7 +34,7 @@ export default function Navbar() {
   const firstParam = pathname.split("/")[1];
 
   return (
-    <nav className="py-6">
+    <nav className="no-print py-6">
       <div className="flex flex-row md:pt-4">
         <div className="flex items-center gap-4 text-highlight-1 md:w-full">
           {Object.values(siteConfig.links).map((link) => (

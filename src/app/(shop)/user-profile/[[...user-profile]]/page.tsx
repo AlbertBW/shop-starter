@@ -21,7 +21,7 @@ export default function UserProfilePage() {
     <LoadingSpinner />;
   }
 
-  if (!isSignedIn) {
+  if (isLoaded && !isSignedIn) {
     redirect("/sign-in");
   }
 

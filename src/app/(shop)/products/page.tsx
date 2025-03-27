@@ -7,6 +7,7 @@ import ProductPagination from "./_components/product-pagination";
 import { createPriceString } from "~/app/_lib/utils";
 import { type OrderByOptions } from "~/lib/types";
 import { MobileProductSidebar } from "./_components/product-sidebar";
+import { PRODUCTS_PER_PAGE } from "~/lib/constants";
 
 export default async function Products({
   searchParams,
@@ -35,7 +36,7 @@ export default async function Products({
     return acc;
   }, 0);
 
-  const pages = Math.ceil(productCount / 12);
+  const pages = Math.ceil(productCount / PRODUCTS_PER_PAGE);
   const suspenseKey = `products-${categoryParam ?? "all"}-${orderBy}-${page}`;
 
   return (

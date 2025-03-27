@@ -25,8 +25,8 @@ model Product {
     description     String
     slug            String           @unique
     sku             String           @unique
-    price           Float
-    salePrice       Float?
+    price           Int
+    salePrice       Int?
     salePriceStart  DateTime?
     salePriceEnd    DateTime?
     currency        String
@@ -48,8 +48,8 @@ model ProductVariant {
     id             Int       @id @default(autoincrement())
     name           String
     sku            String    @unique
-    price          Float
-    salePrice      Float?
+    price          Int
+    salePrice      Int?
     salePriceStart DateTime?
     salePriceEnd   DateTime?
     currency       String
@@ -59,8 +59,9 @@ model ProductVariant {
     createdAt      DateTime  @default(now())
     updatedAt      DateTime  @updatedAt
 
-    product  Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
-    CartItem CartItem[]
+    product   Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+    CartItem  CartItem[]
+    OrderItem OrderItem[]
 
     @@index([name])
 }
@@ -90,21 +91,62 @@ model Category {
 }
 
 model Order {
-    id        Int         @id @default(autoincrement())
-    userId    String
-    name      String
-    email     String
-    phone     String
-    address   String
-    city      String
-    state     String
-    country   String
-    zip       String
-    total     Float
-    status    String
-    createdAt DateTime    @default(now())
-    updatedAt DateTime    @updatedAt
-    OrderItem OrderItem[]
+    id                Int             @id @default(autoincrement())
+    orderNumber       String          @unique
+    userId            String?
+    sessionId         String?
+    email             String
+    shippingMethod    ShippingMethod
+    shippingCost      Int
+    total             Int
+    currency          String
+    status            OrderStatus
+    paymentStatus     PaymentStatus
+    paymentIntentId   String?
+    createdAt         DateTime        @default(now())
+    updatedAt         DateTime        @updatedAt
+    OrderItem         OrderItem[]
+    shippingAddressId Int
+    ShippingAddress   ShippingAddress @relation(fields: [shippingAddressId], references: [id])
+
+    @@index([email])
+    @@index([shippingAddressId])
+}
+
+enum ShippingMethod {
+    standard
+    express
+}
+
+enum OrderStatus {
+    pending
+    processing
+    shipped
+    delivered
+    cancelled
+}
+
+enum PaymentStatus {
+    pending
+    completed
+    failed
+}
+
+model ShippingAddress {
+    id           Int      @id @default(autoincrement())
+    userId       String?
+    name         String
+    email        String
+    phone        String
+    addressLine1 String
+    addressLine2 String?
+    city         String
+    county       String
+    country      String
+    postcode     String
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+    Order        Order[]
 
     @@index([email])
 }
@@ -113,25 +155,29 @@ model OrderItem {
     id        Int      @id @default(autoincrement())
     orderId   Int
     productId Int
+    variantId Int?
     quantity  Int
-    price     Float
+    price     Int
+    currency  String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
-    product Product @relation(fields: [productId], references: [id], onDelete: NoAction)
+    order   Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+    product Product         @relation(fields: [productId], references: [id], onDelete: NoAction)
+    variant ProductVariant? @relation(fields: [variantId], references: [id], onDelete: NoAction)
 
     @@index([orderId])
 }
 
 model Cart {
-    id        Int        @id @default(autoincrement())
-    userId    String?
-    sessionId String?
-    status    String     @default("active") // active, abandoned
-    createdAt DateTime   @default(now())
-    updatedAt DateTime   @updatedAt
-    items     CartItem[]
+    id         Int        @id @default(autoincrement())
+    userId     String?
+    sessionId  String?
+    status     String     @default("active") // active, abandoned
+    couponCode String?
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @updatedAt
+    items      CartItem[]
 
     @@index([userId])
     @@index([sessionId])

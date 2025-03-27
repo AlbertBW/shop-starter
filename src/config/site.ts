@@ -10,7 +10,9 @@ export const siteConfig = {
   description:
     process.env.NEXT_PUBLIC_STORE_DESCRIPTION ??
     "A starter kit for building a shop",
-  url: process.env.NEXT_PUBLIC_STORE_DOMAIN ?? "shopstarter.com",
+  url:
+    process.env.NEXT_PUBLIC_STORE_DOMAIN ??
+    "https://shop-starter.albertbw.dev/",
   heroImage:
     process.env.NEXT_PUBLIC_OG_IMAGE ?? "https://yourstore.com/og-image.jpg",
   links: {

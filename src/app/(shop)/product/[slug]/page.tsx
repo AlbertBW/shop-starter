@@ -1,8 +1,8 @@
 import { api, HydrateClient } from "~/trpc/server";
-import BackLink from "../_components/back-link";
 import AddToCartForm from "../_components/add-to-cart-form";
 import { Suspense } from "react";
 import LoadingSpinner from "~/app/_components/loading-spinner";
+import BackButton from "../../../_components/back-button";
 
 export default async function ProductPage({
   params,
@@ -17,7 +17,7 @@ export default async function ProductPage({
     <HydrateClient>
       <div className="flex flex-col py-2">
         <div>
-          <BackLink />
+          <BackButton />
         </div>
 
         <Suspense fallback={<LoadingSpinner />}>

@@ -22,7 +22,7 @@ export default function About() {
   }, [updateMousePosition]);
 
   return (
-    <div className="relative overflow-hidden py-12">
+    <div className="relative overflow-hidden py-6">
       {/* background gradient that follows cursor */}
       <div
         className="pointer-events-none fixed inset-0 z-[-1] opacity-40 transition-opacity duration-500"
@@ -44,12 +44,12 @@ export default function About() {
 
       <section className="relative mb-16">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          <div className="relative aspect-square overflow-hidden rounded-lg">
+          <div className="relative aspect-square overflow-hidden rounded-lg shadow-md">
             <Image
               src="https://c4kzitkhtxdwhtej.public.blob.vercel-storage.com/about-page-upVLtGLE7zrHK21K2b5DnTZtBIFdKP.jpeg"
               alt="Our technology philosophy"
               fill
-              className="object-cover shadow-sm"
+              className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
               priority
             />
