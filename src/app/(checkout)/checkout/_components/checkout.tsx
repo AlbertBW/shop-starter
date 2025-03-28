@@ -4,7 +4,6 @@ import { Button } from "~/app/_components/ui/button";
 import CheckoutForm from "./checkout-form";
 import OrderSummary from "./order-summary";
 import Link from "next/link";
-import { useRef } from "react";
 
 export default function Checkout() {
   const formId = "checkout-form";
