@@ -22,7 +22,7 @@ function FieldInfo({ field }: { field: AnyFieldApi }) {
   );
 }
 
-export default function CheckoutForm() {
+export default function CheckoutForm({ formId }: { formId: string }) {
   const { isLoaded, isSignedIn, user } = useUser();
   const { sessionId } = useLocalStorage();
 
@@ -70,6 +70,7 @@ export default function CheckoutForm() {
         e.stopPropagation();
         void form.handleSubmit();
       }}
+      id={formId}
     >
       {!isLoaded ? (
         <div>
@@ -317,7 +318,6 @@ export default function CheckoutForm() {
           />
         </div>
       </div>
-      <button>Click</button>
     </form>
   );
 }

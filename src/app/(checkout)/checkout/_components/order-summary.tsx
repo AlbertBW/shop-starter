@@ -23,7 +23,6 @@ export default function OrderSummary() {
 
   return (
     <div className="space-y-4">
-      {/* Cart items */}
       <div className="space-y-3">
         {cart.items.map((item) => (
           <div key={item.id} className="flex items-start space-x-4">

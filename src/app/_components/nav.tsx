@@ -1,7 +1,13 @@
 "use client";
 
 import { Search, UserCircle2Icon } from "lucide-react";
-import { SignInButton, SignedIn, SignedOut } from "@clerk/nextjs";
+import {
+  ClerkLoaded,
+  ClerkLoading,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+} from "@clerk/nextjs";
 import Link from "next/link";
 import { ModeToggle } from "./theme-toggle";
 import { usePathname } from "next/navigation";
@@ -65,18 +71,23 @@ export default function Navbar() {
           <span className="hidden md:flex">
             <ModeToggle />
           </span>
-          <div className="hidden md:flex">
-            <SignedIn>
-              <UserButtonClerk />
-            </SignedIn>
+          <div className="hidden size-6 md:flex">
+            <ClerkLoading>
+              <div className="flex size-6 animate-pulse items-center justify-center rounded-full bg-muted-foreground"></div>
+            </ClerkLoading>
+            <ClerkLoaded>
+              <SignedIn>
+                <UserButtonClerk />
+              </SignedIn>
 
-            <SignedOut>
-              <SignInButton mode="modal">
-                <button>
-                  <UserCircle2Icon />
-                </button>
-              </SignInButton>
-            </SignedOut>
+              <SignedOut>
+                <SignInButton mode="modal">
+                  <button>
+                    <UserCircle2Icon />
+                  </button>
+                </SignInButton>
+              </SignedOut>
+            </ClerkLoaded>
           </div>
         </div>
       </div>

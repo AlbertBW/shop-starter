@@ -27,10 +27,10 @@ export default function HomeProducts({ orderBy }: { orderBy: OrderByOptions }) {
             height={300}
             className="aspect-square h-auto w-full rounded-lg object-cover transition-transform duration-200 group-hover:scale-105"
           />
-          <div className="absolute bottom-2 left-2 rounded-tr-lg bg-highlight-2 px-2 py-1 text-highlight-1 transition-all duration-200 group-hover:bottom-0 group-hover:left-0">
+          <div className="absolute bottom-2.5 left-2.5 rounded-tr-lg bg-highlight-2 px-2 py-1 text-sm text-highlight-1 transition-all duration-200 group-hover:rounded-bl-lg group-hover:bg-black/30 group-hover:text-white group-hover:backdrop-blur-md">
             {product.name}
           </div>
-          <div className="absolute bottom-2 right-2 rounded-tl-lg bg-highlight-2 px-2 py-1 text-highlight-1 transition-all duration-200 group-hover:bottom-0 group-hover:right-0">
+          <div className="absolute bottom-2.5 right-2.5 rounded-tl-lg bg-highlight-2 px-2 py-1 text-sm text-highlight-1 transition-all duration-200 group-hover:rounded-bl-lg group-hover:bg-black/30 group-hover:text-white group-hover:backdrop-blur-md">
             {createPriceString(product.price, product.currency)}
           </div>
         </Link>

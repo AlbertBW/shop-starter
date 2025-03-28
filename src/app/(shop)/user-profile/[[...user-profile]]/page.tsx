@@ -4,15 +4,7 @@ import { useAuth, UserProfile } from "@clerk/nextjs";
 import { Package } from "lucide-react";
 import { redirect } from "next/navigation";
 import LoadingSpinner from "~/app/_components/loading-spinner";
-
-function OrdersPage() {
-  return (
-    <div>
-      <h3>Orders page</h3>
-      <p>This is the content of the Orders page.</p>
-    </div>
-  );
-}
+import UserOrders from "../_components/user-orders";
 
 export default function UserProfilePage() {
   const { isLoaded, isSignedIn } = useAuth();
@@ -34,7 +26,7 @@ export default function UserProfilePage() {
           labelIcon={<Package size={16} />}
           url="orders"
         >
-          <OrdersPage />
+          <UserOrders />
         </UserProfile.Page>
         <UserProfile.Page label="security" />
       </UserProfile>
