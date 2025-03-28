@@ -7,11 +7,12 @@
  * need to use are documented accordingly near the end.
  */
 import { auth } from "@clerk/nextjs/server";
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { db } from "~/server/db";
+import { checkRole } from "~/utils/roles";
 
 /**
  * 1. CONTEXT
@@ -27,10 +28,12 @@ import { db } from "~/server/db";
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   const { userId } = await auth();
+  const isAdmin = await checkRole("admin");
   return {
     db,
     ...opts,
     userId,
+    isAdmin,
   };
 };
 
@@ -107,3 +110,15 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
  * are logged in.
  */
 export const publicProcedure = t.procedure.use(timingMiddleware);
+
+const enforceUserIsAdmin = t.middleware(async ({ ctx, next }) => {
+  if (!ctx.isAdmin) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
+
+  return next({ ctx });
+});
+
+export const adminProcedure = t.procedure
+  .use(enforceUserIsAdmin)
+  .use(timingMiddleware);

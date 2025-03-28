@@ -15,8 +15,8 @@
     --highlight-2: 10, 25%, 95%; /* Pale Dogwood */
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
-    --popover: 10, 25%, 95%; /* Pale Dogwood */
-    --popover-foreground: 180, 18%, 11%; /* Eerie black */
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
@@ -53,8 +53,8 @@
     --highlight-2: 180, 18%, 11%; /* Eerie black */
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
-    --popover: 180, 18%, 11%; /* Eerie black */
-    --popover-foreground: 10, 25%, 95%; /* Pale Dogwood */
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;

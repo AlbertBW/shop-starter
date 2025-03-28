@@ -110,7 +110,7 @@ export function AppSidebar() {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild className="hover:bg-inherit">
-                  <MobileThemeToggle />
+                  <MobileThemeToggle size="lg" />
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SignedIn>

@@ -37,7 +37,7 @@ export function ModeToggle() {
   );
 }
 
-export function MobileThemeToggle() {
+export function MobileThemeToggle({ size = "sm" }: { size?: "sm" | "lg" }) {
   const { setTheme, theme } = useTheme();
 
   const handleThemechange = () => {
@@ -52,13 +52,23 @@ export function MobileThemeToggle() {
     }
   };
 
+  const iconSize = size === "sm" ? "h-4 w-4" : "h-6 w-6";
+  const textSize = size === "sm" ? "text-sm" : "text-xl font-extralight";
+  const padding = size === "sm" ? "pl-2" : "pl-3";
+  const gap = size === "sm" ? "gap-2" : "gap-3";
+  const leftPosition = size === "sm" ? "left-2" : "left-3";
+
   return (
     <button
       onClick={handleThemechange}
-      className="relative flex h-fit w-full flex-row items-center justify-start gap-2 border-0 pl-2 text-xl font-extralight"
+      className={`relative flex h-fit w-full flex-row items-center justify-start ${gap} border-0 ${padding} ${textSize} `}
     >
-      <SunIcon className="h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <MoonIcon className="absolute left-2 top-0 h-6 w-6 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+      <SunIcon
+        className={`${iconSize} rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0`}
+      />
+      <MoonIcon
+        className={`absolute ${leftPosition} top-0 ${iconSize} rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100`}
+      />
       <span className="capitalize">{theme}</span>
     </button>
   );
