@@ -36,7 +36,6 @@ export default async function Products({
     }
     return acc;
   }, 0);
-  console.log("COUNT", productCount);
 
   const pages = Math.ceil(productCount / PRODUCTS_PER_PAGE);
   const suspenseKey = `products-${categoryParam ?? "all"}-${orderBy}-${page}`;

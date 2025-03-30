@@ -78,7 +78,6 @@ export default function SearchBox() {
 
       <button
         onClick={() => {
-          console.log("Button clicked", isOpen);
           if (isOpen) {
             if (input.trim() === "") {
               close();
@@ -89,7 +88,7 @@ export default function SearchBox() {
           }
           setIsOpen((prev) => !prev);
         }}
-        className={`${isOpen ? "py-[3px]" : ""}`}
+        className={`${isOpen && "py-[3px]"}`}
       >
         <Search className={`${isOpen ? "scale-90 pr-1" : ""} transition-all`} />
       </button>
