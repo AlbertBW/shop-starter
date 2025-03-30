@@ -13,11 +13,26 @@ export const categoryRouter = createTRPCRouter({
       });
     }),
 
-  getAll: publicProcedure.query(async ({ ctx }) => {
-    const categories = await ctx.db.category.findMany({
-      include: { _count: true },
-    });
+  getAll: publicProcedure
+    .input(z.object({ search: z.string().optional() }))
+    .query(async ({ ctx, input }) => {
+      const categories = await ctx.db.category.findMany({
+        include: {
+          _count: {
+            select: {
+              Product: {
+                where: {
+                  name: {
+                    contains: input.search ?? "",
+                    mode: "insensitive",
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
 
-    return categories;
-  }),
+      return categories;
+    }),
 });

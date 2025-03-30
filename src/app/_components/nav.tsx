@@ -1,6 +1,6 @@
 "use client";
 
-import { Search, UserCircle2Icon } from "lucide-react";
+import { UserCircle2Icon } from "lucide-react";
 import {
   ClerkLoaded,
   ClerkLoading,
@@ -15,6 +15,7 @@ import { SidebarTrigger } from "./ui/sidebar";
 import UserButtonClerk from "./user-button";
 import ShoppingCartMenu from "./shopping-cart";
 import { siteConfig } from "~/config/site";
+import SearchBox from "./search-box";
 
 export const navItems = [
   {
@@ -62,9 +63,7 @@ export default function Navbar() {
           <Link href={"/"}>{siteConfig.name}</Link>
         </h3>
         <div className="flex items-center justify-end gap-4 text-highlight-1 md:w-full">
-          <span className="hidden md:block">
-            <Search />
-          </span>
+          <SearchBox />
 
           <ShoppingCartMenu />
 

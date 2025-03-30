@@ -15,16 +15,17 @@ export default async function Products({
   searchParams: Promise<{
     category?: string;
     orderBy?: OrderByOptions;
+    search?: string;
     page?: string;
   }>;
 }) {
   const {
     category: categoryParam,
     orderBy = "popular",
+    search,
     page,
   } = await searchParams;
-  const categories = await api.category.getAll();
-
+  const categories = await api.category.getAll({ search });
   const selectedCategory = categories.find(
     (category) => category.slug === categoryParam,
   );
@@ -35,6 +36,7 @@ export default async function Products({
     }
     return acc;
   }, 0);
+  console.log("COUNT", productCount);
 
   const pages = Math.ceil(productCount / PRODUCTS_PER_PAGE);
   const suspenseKey = `products-${categoryParam ?? "all"}-${orderBy}-${page}`;
@@ -47,7 +49,7 @@ export default async function Products({
             <Link
               href={`/products`}
               className="hover:text-primary data-[active=true]:text-primary"
-              data-active={!categoryParam}
+              data-active={!categoryParam && !search}
             >
               All Products
             </Link>
@@ -69,7 +71,11 @@ export default async function Products({
       <div className="flex w-full flex-col gap-4">
         <div className="flex w-full flex-col justify-between gap-4 text-center md:flex-row md:gap-0 md:text-left">
           <h1 className="text-xl font-light tracking-wide text-primary">
-            {selectedCategory ? selectedCategory.name : "All Products"}
+            {search
+              ? `Search for ${search}`
+              : selectedCategory
+                ? selectedCategory.name
+                : "All Products"}
           </h1>
           <div className="flex items-center gap-4">
             <MobileProductSidebar
@@ -82,7 +88,8 @@ export default async function Products({
 
         <Suspense fallback={<LoadingSpinner />} key={suspenseKey}>
           <ProductsList
-            categoryId={selectedCategory?.id}
+            categorySlug={categoryParam}
+            search={search}
             orderBy={orderBy}
             page={page}
           />
@@ -99,16 +106,19 @@ export default async function Products({
 }
 
 async function ProductsList({
-  categoryId,
+  categorySlug,
+  search,
   orderBy,
   page,
 }: {
-  categoryId?: number;
+  categorySlug?: string;
+  search?: string;
   orderBy: OrderByOptions;
   page?: string;
 }) {
   const products = await api.product.getAll({
-    categoryId,
+    categorySlug,
+    search,
     orderBy,
     page: Number(page) || 1,
   });

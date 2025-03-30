@@ -24,12 +24,14 @@ export default function About() {
   return (
     <div className="relative overflow-hidden py-6">
       {/* background gradient that follows cursor */}
-      <div
-        className="pointer-events-none fixed inset-0 z-[-1] opacity-40 transition-opacity duration-500"
-        style={{
-          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(var(--primary-rgb), 0.55), transparent 40%)`,
-        }}
-      />
+      {mousePosition.x !== 0 && mousePosition.y !== 0 && (
+        <div
+          className="pointer-events-none fixed inset-0 z-[-1] opacity-40 transition-opacity duration-500"
+          style={{
+            background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(var(--primary-rgb), 0.55), transparent 40%)`,
+          }}
+        />
+      )}
 
       <section className="relative mb-16">
         <div className="text-center">

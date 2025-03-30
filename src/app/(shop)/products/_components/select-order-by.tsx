@@ -23,7 +23,11 @@ export function SelectOrderBy() {
   };
 
   return (
-    <Select defaultValue={orderBy ?? "popular"} onValueChange={handleChange}>
+    <Select
+      defaultValue={"popular"}
+      value={orderBy ?? "popular"}
+      onValueChange={handleChange}
+    >
       <SelectTrigger className="flex w-full justify-center md:w-[180px] md:justify-between">
         <SelectValue />
       </SelectTrigger>

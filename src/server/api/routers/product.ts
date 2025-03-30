@@ -40,8 +40,9 @@ export const productRouter = createTRPCRouter({
   getAll: publicProcedure
     .input(
       z.object({
-        categoryId: z.number().optional(),
+        categorySlug: z.string().optional(),
         orderBy: orderBySchema.optional(),
+        search: z.string().optional(),
         limit: z.number().optional(),
         page: z.number().optional(),
       }),
@@ -71,7 +72,13 @@ export const productRouter = createTRPCRouter({
                 : undefined,
         },
         where: {
-          categoryId: input.categoryId ?? undefined,
+          category: {
+            slug: input.categorySlug ?? undefined,
+          },
+          name: {
+            contains: input.search,
+            mode: "insensitive",
+          },
         },
       });
 
