@@ -1,11 +1,12 @@
 import Stripe from "stripe";
+import { env } from "~/env";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
 export type SessionCreate = Stripe.Checkout.SessionCreateParams;
 
 export async function createCheckoutSession(sessionCreate: SessionCreate) {
-  const origin = process.env.NEXT_PUBLIC_STORE_DOMAIN!;
+  const origin = env.NEXT_PUBLIC_STORE_DOMAIN;
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   const session = await stripe.checkout.sessions.create({

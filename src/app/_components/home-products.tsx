@@ -17,7 +17,7 @@ export default function HomeProducts({ orderBy }: { orderBy: OrderByOptions }) {
       {products.map((product) => (
         <Link
           key={product.id}
-          href={`/product/${product.slug}`}
+          href={`/products/${product.slug}`}
           className="group relative w-72 overflow-hidden rounded-lg bg-highlight-2 p-3 shadow-md"
         >
           <Image

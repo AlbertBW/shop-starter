@@ -4,17 +4,13 @@ import {
   SiX,
   SiYoutube,
 } from "@icons-pack/react-simple-icons";
+import { env } from "~/env";
 
 export const siteConfig = {
-  name: process.env.NEXT_PUBLIC_STORE_NAME ?? "Shop Starter Kit",
-  description:
-    process.env.NEXT_PUBLIC_STORE_DESCRIPTION ??
-    "A starter kit for building a shop",
-  url:
-    process.env.NEXT_PUBLIC_STORE_DOMAIN ??
-    "https://shop-starter.albertbw.dev/",
-  heroImage:
-    process.env.NEXT_PUBLIC_OG_IMAGE ?? "https://yourstore.com/og-image.jpg",
+  name: env.NEXT_PUBLIC_STORE_NAME ?? "Shop Starter Kit",
+  description: env.NEXT_PUBLIC_STORE_DESCRIPTION,
+  url: env.NEXT_PUBLIC_STORE_DOMAIN,
+  heroImage: env.NEXT_PUBLIC_OG_IMAGE,
   links: {
     facebook: {
       title: "Facebook",

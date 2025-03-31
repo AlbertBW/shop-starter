@@ -89,7 +89,7 @@ export default function ShoppingCartMenu() {
                         className="flex w-full items-center justify-between"
                       >
                         <Link
-                          href={`/product/${item.product.slug}`}
+                          href={`/products/${item.product.slug}`}
                           className="flex w-full items-center gap-2 md:gap-4"
                         >
                           <picture>

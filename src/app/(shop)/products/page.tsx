@@ -86,12 +86,18 @@ export default async function Products({
         </div>
 
         <Suspense fallback={<LoadingSpinner />} key={suspenseKey}>
-          <ProductsList
-            categorySlug={categoryParam}
-            search={search}
-            orderBy={orderBy}
-            page={page}
-          />
+          {productCount > 0 ? (
+            <ProductsList
+              categorySlug={categoryParam}
+              search={search}
+              orderBy={orderBy}
+              page={page}
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center">
+              <p className="text-muted-foreground">No products found.</p>
+            </div>
+          )}
         </Suspense>
         {pages > 1 && (
           <ProductPagination
@@ -126,7 +132,7 @@ async function ProductsList({
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {products.map((product) => (
         <Link
-          href={`/product/${product.slug}`}
+          href={`/products/${product.slug}`}
           key={product.id}
           className="flex flex-col gap-2 pb-4"
         >

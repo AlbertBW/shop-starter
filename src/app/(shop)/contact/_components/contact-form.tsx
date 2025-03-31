@@ -5,8 +5,9 @@ import { Button } from "~/app/_components/ui/button";
 import { Input } from "~/app/_components/ui/input";
 import { Label } from "~/app/_components/ui/label";
 import { Textarea } from "~/app/_components/ui/textarea";
+import { env } from "~/env";
 
-const FORM_ID = process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID!;
+const FORM_ID = env.NEXT_PUBLIC_FORMSPREE_FORM_ID;
 
 export default function ContactForm() {
   const [state, handleSubmit] = useForm(FORM_ID);

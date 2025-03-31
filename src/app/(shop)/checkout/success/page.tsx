@@ -104,7 +104,7 @@ export default async function SuccessPage({
               </div>
               <div className="flex w-full flex-col">
                 <Link
-                  href={`/product/${item.product.name}`}
+                  href={`/products/${item.product.name}`}
                   className="font-medium transition-colors hover:text-primary"
                 >
                   {item.product.name.length > 24

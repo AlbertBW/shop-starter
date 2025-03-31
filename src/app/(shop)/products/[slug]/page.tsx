@@ -1,5 +1,5 @@
 import { api, HydrateClient } from "~/trpc/server";
-import AddToCartForm from "../_components/add-to-cart-form";
+import AddToCartForm from "./_components/add-to-cart-form";
 import { Suspense } from "react";
 import LoadingSpinner from "~/app/_components/loading-spinner";
 import BackButton from "../../../_components/back-button";
